@@ -13,7 +13,13 @@ YEAR=`echo "$EVENTDATE" | cut -d '-' -f 1`
 MONTH=`echo "$EVENTDATE" | cut -d '-' -f 2`
 DAY=`echo "$EVENTDATE" | cut -d '-' -f 3`
 
+TMPDIR=`mktemp --directory`
+pushd $TMPDIR
+
 wget http://data.githubarchive.org/$DATE-{0..23}.json.gz
 
 S3DEST="$ROOTBUCKET/$YEAR/$MONTH/$DAY/"
 s3cmd put *.json.gz "$S3DEST"
+
+popd
+rm -rf $TMPDIR
