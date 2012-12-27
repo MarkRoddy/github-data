@@ -18,4 +18,5 @@ for (( c=0; c<$2; c++ )); do
     CURDATE=`date --date="$START +$c day" +%Y-%m-%d`;
     echo "Would Process: $CURDATE ";
     ./date-to-s3.sh s3://net.ednit.datasets/githubarchive $CURDATE;
+    sleep $DELAY;
 done
